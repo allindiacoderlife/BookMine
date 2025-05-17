@@ -1,13 +1,13 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "../lib/utils";
-
+import { icons } from "@/assets";
 const Header = () => {
   const { pathname } = useLocation();
   return (
     <header className="my-10 flex justify-between gap-5">
       <Link to="/">
-        <img src="/icons/logo.svg" alt="logo" width={40} height={40} />
+        <img src={icons.logo} alt="logo" width={40} height={40} />
       </Link>
       <ul className="flex flex-row items-center gap-8">
         <li>

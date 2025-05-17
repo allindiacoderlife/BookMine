@@ -1,6 +1,7 @@
 import React from "react";
 import { Button } from "../components/ui/button";
 import BookCover from "./BookCover";
+import { icons } from "@/assets";
 const BookOverview = ({
   title,
   author,
@@ -25,7 +26,7 @@ const BookOverview = ({
             <span className="font-semibold text-light-200">{genre}</span>
           </p>
           <div className="flex flex-row gap-1">
-            <img src="/icons/star.svg" alt="star" width={22} height={22} />
+            <img src={icons.star} alt="star" width={22} height={22} />
             <p>{rating}</p>
           </div>
         </div>
@@ -39,7 +40,7 @@ const BookOverview = ({
         </div>
         <p className="book-description">{description}</p>
         <Button className="book-overview_btn">
-          <img src="/icons/book.svg" alt="book" width={20} height={20} />
+          <img src={icons.book} alt="book" width={20} height={20} />
           <p className="font-bebas-neue text-xl text-dark-100">Borrow</p>
         </Button>
       </div>

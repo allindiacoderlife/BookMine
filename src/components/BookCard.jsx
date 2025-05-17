@@ -1,8 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import BookCover from "./BookCover";
-import { cn } from "../lib/utils";
-import { Button } from "./ui/button";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { icons } from "@/assets";
 const BookCard = ({ id, title, genre, color, cover, isLoanedBook = false }) => {
   return (
     <li className={cn(isLoanedBook && "xs:w-52 w-full")}>
@@ -21,7 +22,7 @@ const BookCard = ({ id, title, genre, color, cover, isLoanedBook = false }) => {
           <div className="mt-3 w-full">
             <div className="book-loaned">
               <img
-                src="/icons/calendar.svg"
+                src={icons.calender}
                 alt="calendar"
                 width={18}
                 height={18}
