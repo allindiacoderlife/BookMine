@@ -13,6 +13,9 @@ const authRoutes = require("./src/routes/auth.route");
 //Import Rate Limit
 const rateLimit = require("express-rate-limit");
 
+//Enable trust proxy
+app.set("trust proxy", 1);
+
 const app = express();
 
 const PORT = process.env.PORT || 3001;
