@@ -38,6 +38,9 @@ app.use("/api/auth", authLimiter); // stricter for auth
 app.use("/api/imagekit", imageKitRoutes);
 app.use("/api/auth", authRoutes);
 
+//Use Job
+require("./src/job/email.reminder")
+
 app.get("/", (req, res) => {
   res.send("API is running...");
 });

@@ -1,6 +1,11 @@
 const { transporter, sender } = require("./email.config.js");
-const { VERIFICATION_EMAIL_TEMPLATE, WELCOME_EMAIL_TEMPLATE , PASSWORD_RESET_REQUEST_TEMPLATE, PASSWORD_RESET_SUCCESS_TEMPLATE} = require("./email.templete.js");
-require('dotenv').config();
+const {
+  VERIFICATION_EMAIL_TEMPLATE,
+  WELCOME_EMAIL_TEMPLATE,
+  PASSWORD_RESET_REQUEST_TEMPLATE,
+  PASSWORD_RESET_SUCCESS_TEMPLATE,
+} = require("./email.templete.js");
+require("dotenv").config();
 
 const sendVerificationEmail = async (email, token) => {
   const mailOptions = {
@@ -34,7 +39,7 @@ const sendWelcomeEmail = async (email, name) => {
       console.log("Welcome email sent:", info.response);
     }
   });
-}
+};
 
 const sendPasswordResetEmail = async (email, resetURL) => {
   const mailOptions = {
@@ -51,7 +56,7 @@ const sendPasswordResetEmail = async (email, resetURL) => {
       console.log("Password reset email sent:", info.response);
     }
   });
-}
+};
 
 const sendResetSuccessEmail = async (email) => {
   const mailOptions = {
@@ -68,6 +73,28 @@ const sendResetSuccessEmail = async (email) => {
       console.log("Password reset success email sent:", info.response);
     }
   });
-}
+};
 
-module.exports = { sendVerificationEmail , sendWelcomeEmail, sendPasswordResetEmail, sendResetSuccessEmail};
+const sendReminderEmail = async (email, name) => {
+  const mailOptions = {
+    from: `${sender.name} <${sender.email}>`,
+    to: email,
+    subject: "Password Reset Successful",
+    html: `<h3>Hello ${name},</h3><p>This is your reminder from BookMine after 3 days. Keep exploring your library! 📚</p>`,
+  };
+  transporter.sendMail(mailOptions, (err, info) => {
+    if (err) {
+      console.error("Error sending email:", err);
+    } else {
+      console.log("Password reset success email sent:", info.response);
+    }
+  });
+};
+
+module.exports = {
+  sendVerificationEmail,
+  sendWelcomeEmail,
+  sendPasswordResetEmail,
+  sendResetSuccessEmail,
+  sendReminderEmail,
+};
