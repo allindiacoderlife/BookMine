@@ -19,6 +19,9 @@ import ImageUpload from "./ImageUpload";
 import { FIELD_TYPES } from "../contents";
 
 const AuthForm = ({ type, schema, defaultValues, onSubmit }) => {
+
+  const mainUrl = import.meta.env.VITE_URL_MAIN;
+
   const isSignIn = type === "SignIn";
 
   const form = useForm({
@@ -26,7 +29,38 @@ const AuthForm = ({ type, schema, defaultValues, onSubmit }) => {
     defaultValues: defaultValues,
   });
 
-  const handleSubmit = async (data) => {};
+  const handleSubmit = async (data) => {
+    onSubmit(data);
+    try {
+      const endpoint = isSignIn ? "/api/auth/signin" : "/api/auth/signup";
+      const res = await fetch(mainUrl + endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      if(res.status === 429) {
+        alert("Too many requests. Please try again later.");
+        return;
+      }
+
+      const result = await res.json();
+      if (!res.ok) throw new Error(result.message);
+
+      // Handle success
+      if (isSignIn) {
+        localStorage.setItem("token", result.token);
+        localStorage.setItem("user", JSON.stringify(result.user));
+        console.log("Logged in:", result.user);
+        window.location.href = "/BookMine/";
+      } else {
+        console.log("Account created");
+        window.location.href = "/BookMine/sign-in";
+      }
+    } catch (err) {
+      console.error("Auth error:", err.message);
+    }
+  };
 
   return (
     <div className="flex flex-col gap-4">

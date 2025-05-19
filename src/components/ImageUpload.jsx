@@ -2,7 +2,6 @@ import { IKImage, IKVideo, IKContext, IKUpload } from "imagekitio-react";
 import React, { useRef, useState } from "react";
 import { icons } from "@/assets";
 
-
 const ImageUpload = ({ onFileChange }) => {
   const UploadRef = useRef();
   const [file, setFile] = useState(null);
@@ -32,7 +31,7 @@ const ImageUpload = ({ onFileChange }) => {
 
   const onSuccess = (res) => {
     setFile(res);
-    onFileChange(res.filePath);
+    onFileChange(res.url); // safer to return full URL
   };
 
   return (
@@ -66,14 +65,6 @@ const ImageUpload = ({ onFileChange }) => {
         />
         <p className="text-base text-light-100">Upload a File</p>
         {file && <p className="upload-filename">{file.filePath}</p>}
-        {/* {file && (
-          <IKImage
-            alt={file.filePath}
-            path={file.filePath}
-            width={500}
-            height={500}
-          />
-        )} */}
       </button>
     </IKContext>
   );
