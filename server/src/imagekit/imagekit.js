@@ -1,0 +1,20 @@
+const ImageKit = require("imagekit");
+require("dotenv").config();
+
+const imagekit = new ImageKit({
+  publicKey: process.env.IMAGEKIT_PUBLIC_KEY,
+  privateKey: process.env.IMAGEKIT_PRIVATE_KEY,
+  urlEndpoint: process.env.IMAGEKIT_URL_ENDPOINT,
+});
+
+const uploadFile = async (req, res) => {
+  const { token, expire, signature } = imagekit.getAuthenticationParameters();
+  res.send({
+    token,
+    expire,
+    signature,
+    publicKey: process.env.IMAGEKIT_PUBLIC_KEY,
+  });
+};
+
+module.exports = { uploadFile };
