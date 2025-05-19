@@ -13,8 +13,6 @@ const authRoutes = require("./src/routes/auth.route");
 //Import Rate Limit
 const rateLimit = require("express-rate-limit");
 
-//Enable trust proxy
-app.set("trust proxy", 1);
 
 const app = express();
 
@@ -24,6 +22,9 @@ app.use(cors());
 app.use(express.json());
 
 connectDB(); // Connect to the database when the server starts
+
+
+app.set("trust proxy", 1);
 
 const authLimiter = rateLimit({
   windowMs: 10 * 60 * 1000, // 10 minutes
