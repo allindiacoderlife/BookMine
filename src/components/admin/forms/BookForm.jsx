@@ -22,10 +22,11 @@ import { Textarea } from "../../ui/textarea";
 import FileUpload from "../../FileUpload";
 import ColorPicker from "../ColorPicker";
 import { toast } from "react-toastify";
+import { useState } from "react";
 
 const BookForm = ({ type, ...book }) => {
   const mainUrl = import.meta.env.VITE_URL_MAIN;
-
+  const [isLoading, setIsLoading] = useState(false);
   const form = useForm({
     resolver: zodResolver(bookSchema),
     defaultValues: {
@@ -43,8 +44,10 @@ const BookForm = ({ type, ...book }) => {
   });
 
   const handleSubmit = async (data) => {
+    setIsLoading(true);
+    console.log("Submitting book form with data:", data);
     try {
-      const endpoint = "/api/books/"
+      const endpoint = "/api/books/upload"
       const res = await fetch(mainUrl + endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -63,6 +66,7 @@ const BookForm = ({ type, ...book }) => {
       console.error("Error submitting book form:", err);
       toast.error("An error occurred while submitting the form. Please try again.");
     }
+    setIsLoading(false);
   };
 
   return (
@@ -284,7 +288,7 @@ const BookForm = ({ type, ...book }) => {
           )}
         />
         <Button type="submit" className="book-form_btn text-white">
-          Add Book to Library
+          {!isLoading ? "Submit Book" : "Submitting..."}
         </Button>
       </form>
     </Form>

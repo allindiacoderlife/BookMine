@@ -1,6 +1,5 @@
 const Book = require("../models/book.model");
 
-// POST /api/books - Add new book
 const uploadBook = async (req, res) => {
   try {
     const book = new Book(req.body);
@@ -11,7 +10,6 @@ const uploadBook = async (req, res) => {
   }
 };
 
-// GET /api/books - Get all books
 const getBook = async (req, res) => {
   try {
     const books = await Book.find();
