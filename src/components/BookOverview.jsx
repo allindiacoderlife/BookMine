@@ -2,17 +2,27 @@ import React from "react";
 import { Button } from "../components/ui/button";
 import BookCover from "./BookCover";
 import { icons } from "@/assets";
+import BorrowBook from "./BorrowBook";
+import { userInfo } from "../lib/auth";
 const BookOverview = ({
   title,
   author,
   genre,
   rating,
-  total_copies,
-  available_copies,
+  totalCopies,
+  availableCopies,
   description,
-  color,
-  cover,
+  coverColor,
+  coverUrl,
+  _id,
 }) => {
+  const user = userInfo();
+  const userId = user?._id || "";
+  const borrowingEligibility = {
+    // isEligible: availableCopies > 0 && user?.status === "APPROVED",
+    isEligible: availableCopies > 0,
+    message: availableCopies <= 0 ? "Book is not available" : "You are not eligible to borrow this book",
+  }
   return (
     <section className="book-overview">
       <div className="flex flex-1 flex-col gap-5">
@@ -32,28 +42,25 @@ const BookOverview = ({
         </div>
         <div className="book-copies">
           <p>
-            Total Book: <span>{total_copies}</span>
+            Total Book: <span>{totalCopies}</span>
           </p>
           <p>
-            Available Copies: <span>{available_copies}</span>
+            Available Copies: <span>{availableCopies}</span>
           </p>
         </div>
         <p className="book-description">{description}</p>
-        <Button className="book-overview_btn">
-          <img src={icons.book} alt="book" width={20} height={20} />
-          <p className="font-bebas-neue text-xl text-dark-100">Borrow</p>
-        </Button>
+        <BorrowBook bookId={_id} userId={userId} borrowingEligibility={borrowingEligibility}/>
       </div>
       <div className="relative flex flex-1 justify-center">
         <div className="relative">
           <BookCover
             variant="wide"
             className="z-10"
-            coverColor={color}
-            coverUrl={cover}
+            coverColor={coverColor}
+            coverUrl={coverUrl}
           />
           <div className="absolute left-16 top-10 rotate-12 opacity-40 z-0 max-sm:hidden">
-            <BookCover variant="wide" coverColor={color} coverUrl={cover} />
+            <BookCover variant="wide" coverColor={coverColor} coverUrl={coverUrl} />
           </div>
         </div>
       </div>

@@ -18,10 +18,12 @@ import { FIELD_NAMES } from "@/contents";
 import FileUpload from "./FileUpload";
 import { FIELD_TYPES } from "../contents";
 import { toast } from "react-toastify";
+import Loader from "./Loader";
+import { useState } from "react";
 
 const AuthForm = ({ type, schema, defaultValues, onSubmit }) => {
   const mainUrl = import.meta.env.VITE_URL_MAIN;
-
+  const [isLoading, setIsLoading] = useState(false);
   const isSignIn = type === "SignIn";
 
   const form = useForm({
@@ -30,6 +32,7 @@ const AuthForm = ({ type, schema, defaultValues, onSubmit }) => {
   });
 
   const handleSubmit = async (data) => {
+    setIsLoading(true);
     onSubmit(data);
     try {
       const endpoint = isSignIn ? "/api/auth/signin" : "/api/auth/signup";
@@ -62,6 +65,7 @@ const AuthForm = ({ type, schema, defaultValues, onSubmit }) => {
     } catch (err) {
       console.error("Auth error:", err.message);
     }
+    setIsLoading(false);
   };
 
   return (
@@ -114,7 +118,7 @@ const AuthForm = ({ type, schema, defaultValues, onSubmit }) => {
             />
           ))}
           <Button type="submit" className="form-btn">
-            {isSignIn ? "Sign In" : "Sign Up"}
+            {!isLoading ? (isSignIn ? "Sign In" : "Sign Up") : <Loader />}
           </Button>
         </form>
       </Form>

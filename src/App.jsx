@@ -6,6 +6,7 @@ import Auth from "./pages/Auth/Auth";
 import SignIn from "./pages/Auth/SignIn";
 import SignUp from "./pages/Auth/SignUp";
 import Profile from "./pages/Profile";
+import BookDetail from "./pages/BookDetail";
 
 import AdminLayout from "./pages/Admin/AdminLayout";
 import AdminHome from "./pages/Admin/AdminHome";
@@ -82,6 +83,9 @@ const App = () => {
             </RequireAuth>
           }
         />
+
+        {/* Book detail: public route */}
+        <Route path="/books/:id" element={<BookDetail />} />
 
         {/* Admin routes: protected, only admin role */}
         <Route

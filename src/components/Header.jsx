@@ -7,7 +7,7 @@ import { userInfo } from "../lib/auth";
 const Header = () => {
   const { pathname } = useLocation();
   const user = userInfo();
-  console.log((user?.fullName).split(" ")[0]);
+  // console.log((user?.fullName).split(" ")[0]);
 
   return (
     <header className="my-10 flex justify-between gap-5">

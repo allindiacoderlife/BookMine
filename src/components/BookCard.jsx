@@ -4,14 +4,14 @@ import BookCover from "./BookCover";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { icons } from "@/assets";
-const BookCard = ({ id, title, genre, color, cover, isLoanedBook = false }) => {
+const BookCard = ({ _id, title, genre, coverColor, coverUrl, isLoanedBook = false }) => {
   return (
     <li className={cn(isLoanedBook && "xs:w-52 w-full")}>
       <Link
-        to={`/books/${id}`}
+        to={`/books/${_id}`}
         className={cn(isLoanedBook && "w-full flex flex-col items-center")}
       >
-        <BookCover coverColor={color} coverUrl={cover} />
+        <BookCover coverColor={coverColor} coverUrl={coverUrl} />
 
         <div className={cn("mt-4", !isLoanedBook && "xs:max-w-40 max-w-28")}>
           <p className="book-title">{title}</p>

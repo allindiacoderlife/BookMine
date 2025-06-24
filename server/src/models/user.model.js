@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 
+const STATUS_ENUM = ["PENDING", "APPROVED", "REJECTED"];
+
 const userSchema = new mongoose.Schema(
   {
     email: {
@@ -30,6 +32,11 @@ const userSchema = new mongoose.Schema(
       type: String,
       enum: ["User", "Admin"],
       default: "User",
+    },
+    status: {
+      type: String,
+      enum: STATUS_ENUM,
+      default: "PENDING",
     },
   },
   { timestamps: true }
