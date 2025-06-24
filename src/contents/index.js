@@ -1,3 +1,4 @@
+import { admin } from "../assets";
 export const navigationLinks = [
   {
     href: "/library",
@@ -14,27 +15,27 @@ export const navigationLinks = [
 
 export const adminSideBarLinks = [
   {
-    img: "/icons/admin/home.svg",
+    img: `${admin.adminHome}`,
     route: "/admin",
     text: "Home",
   },
   {
-    img: "/icons/admin/users.svg",
+    img: `${admin.adminUsers}`,
     route: "/admin/users",
     text: "All Users",
   },
   {
-    img: "/icons/admin/book.svg",
+    img: `${admin.adminBook}`,
     route: "/admin/books",
     text: "All Books",
   },
   {
-    img: "/icons/admin/bookmark.svg",
+    img: `${admin.admineBookMark}`,
     route: "/admin/book-requests",
     text: "Borrow Requests",
   },
   {
-    img: "/icons/admin/user.svg",
+    img: `${admin.adminUser}`,
     route: "/admin/account-requests",
     text: "Account Requests",
   },

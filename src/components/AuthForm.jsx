@@ -15,11 +15,11 @@ import {
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { FIELD_NAMES } from "@/contents";
-import ImageUpload from "./ImageUpload";
+import FileUpload from "./FileUpload";
 import { FIELD_TYPES } from "../contents";
+import { toast } from "react-toastify";
 
 const AuthForm = ({ type, schema, defaultValues, onSubmit }) => {
-
   const mainUrl = import.meta.env.VITE_URL_MAIN;
 
   const isSignIn = type === "SignIn";
@@ -39,8 +39,8 @@ const AuthForm = ({ type, schema, defaultValues, onSubmit }) => {
         body: JSON.stringify(data),
       });
 
-      if(res.status === 429) {
-        alert("Too many requests. Please try again later.");
+      if (res.status === 429) {
+        toast.warn("Too many requests. Please try again later.");
         return;
       }
 
@@ -52,8 +52,10 @@ const AuthForm = ({ type, schema, defaultValues, onSubmit }) => {
         localStorage.setItem("token", result.token);
         localStorage.setItem("user", JSON.stringify(result.user));
         console.log("Logged in:", result.user);
+        toast.success("Logged in successfully!");
         window.location.href = "/BookMine/";
       } else {
+        toast.success("Account created successfully!");
         console.log("Account created");
         window.location.href = "/BookMine/sign-in";
       }
@@ -89,7 +91,14 @@ const AuthForm = ({ type, schema, defaultValues, onSubmit }) => {
                   </FormLabel>
                   <FormControl>
                     {field.name === "universityCard" ? (
-                      <ImageUpload onFileChange={field.onChange} />
+                      <FileUpload
+                        type="image"
+                        accept="image/*"
+                        placeholder="Upload your ID"
+                        folder="ids"
+                        val="dark"
+                        onFileChange={field.onChange}
+                      />
                     ) : (
                       <Input
                         required

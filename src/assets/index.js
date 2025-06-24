@@ -17,9 +17,16 @@ import user from "./icons/user.svg";
 import verified from "./icons/verified.svg";
 import warning from "./icons/warning.svg";
 
-import authIllustration from "./images/auth-illustration.png"; 
-import noBook from "./images/no-books.png"; 
+import authIllustration from "./images/auth-illustration.png";
+import noBook from "./images/no-books.png";
 import pattern from "./images/pattern.webp";
+
+import adminLogo from "./icons/admin/logo.svg";
+import adminHome from "./icons/admin/home.svg";
+import adminUser from "./icons/admin/user.svg";
+import adminUsers from "./icons/admin/users.svg";
+import admineBookMark from "./icons/admin/bookmark.svg";
+import adminBook from "./icons/admin/book.svg";
 
 const icons = {
   logo,
@@ -46,6 +53,15 @@ const images = {
   authIllustration,
   noBook,
   pattern,
-}
+};
 
-export { icons , images };
+const admin = {
+  adminLogo,
+  adminBook,
+  adminHome,
+  adminUser,
+  adminUsers,
+  admineBookMark,
+};
+
+export { icons, images, admin };

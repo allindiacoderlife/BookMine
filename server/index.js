@@ -9,10 +9,10 @@ const connectDB = require("./src/config/connectDB");
 // Import routes
 const imageKitRoutes = require("./src/routes/imagekit.route");
 const authRoutes = require("./src/routes/auth.route");
+const bookRoutes = require("./src/routes/book.route");
 
 //Import Rate Limit
 const rateLimit = require("express-rate-limit");
-
 
 const app = express();
 
@@ -37,7 +37,7 @@ app.use("/api/auth", authLimiter); // stricter for auth
 // Use routes
 app.use("/api/imagekit", imageKitRoutes);
 app.use("/api/auth", authRoutes);
-
+app.use("/api/books", bookRoutes);
 //Use Job
 require("./src/job/email.reminder")
 
