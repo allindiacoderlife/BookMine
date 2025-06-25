@@ -63,7 +63,12 @@ const AuthForm = ({ type, schema, defaultValues, onSubmit }) => {
         window.location.href = "/BookMine/sign-in";
       }
     } catch (err) {
+      setIsLoading(false);
       console.error("Auth error:", err.message);
+      toast.error(`Authentication failed: ${err.message}`);
+      if (err.message.includes("duplicate key")) {
+        toast.error("Email already exists. Please use a different email.");
+      }
     }
     setIsLoading(false);
   };

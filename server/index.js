@@ -11,6 +11,7 @@ const imageKitRoutes = require("./src/routes/imagekit.route");
 const authRoutes = require("./src/routes/auth.route");
 const bookRoutes = require("./src/routes/book.route");
 const borrowRoutes = require("./src/routes/borrow.route");
+const userRoutes = require("./src/routes/user.route");
 
 //Import Rate Limit
 const rateLimit = require("express-rate-limit");
@@ -39,6 +40,8 @@ app.use("/api/imagekit", imageKitRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/books", bookRoutes);
 app.use("/api/borrows", borrowRoutes);
+app.use("/api/users", userRoutes);
+
 //Use Job
 require("./src/job/email.reminder");
 

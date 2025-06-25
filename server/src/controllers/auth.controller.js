@@ -45,6 +45,11 @@ const signIn = async (req, res) => {
     if (!user)
       return res.status(401).json({ message: "Invalid credentials , user" });
 
+    if (user.status === "REJECTED")
+      return res.status(403).json({
+        message: "Your account has been rejected. Please contact admin.",
+      });
+
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch)
       return res.status(401).json({ message: "Invalid credentials, password" });

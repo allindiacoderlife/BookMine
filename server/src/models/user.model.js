@@ -38,8 +38,13 @@ const userSchema = new mongoose.Schema(
       enum: STATUS_ENUM,
       default: "PENDING",
     },
+    type: {
+      type: String,
+      enum: ["Normal", "Master"],
+      default: "Normal",
+    },
   },
-  { timestamps: true }
+  { timestamps: true },
 ); // adds createdAt, updatedAt
 
 module.exports = mongoose.model("User", userSchema);
