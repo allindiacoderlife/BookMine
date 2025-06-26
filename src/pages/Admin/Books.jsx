@@ -41,6 +41,12 @@ const Books = () => {
           {books === null ? (
             <div className="flex flex-col items-center justify-center h-96">
               <h3 className="text-lg font-semibold text-gray-800 dark:text-white">
+                Loading...
+              </h3>
+            </div>
+          ) : books.length === 0 ? (
+            <div className="flex flex-col items-center justify-center h-96">
+              <h3 className="text-lg font-semibold text-gray-800 dark:text-white">
                 No Books Available
               </h3>
               <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">

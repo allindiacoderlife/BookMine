@@ -1,18 +1,23 @@
 const Book = require("../models/book.model");
 const Borrow = require("../models/borrow.model");
+const User = require("../models/user.model");
 
 const createBorrow = async (req, res) => {
   try {
     const { userId, bookId } = req.body;
 
     // Step 1: Check if the book exists and has available copies
-    const book = await Book.findById({_id: bookId});
+    const book = await Book.findById({ _id: bookId });
     if (!book) {
       return res.status(404).json({ error: "Book not found" });
     }
 
     if (book.availableCopies <= 0) {
       return res.status(400).json({ error: "No available copies left" });
+    }
+    const user = await User.findById({ _id: userId });
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
     }
 
     // Step 2: Prevent duplicate borrow
@@ -35,10 +40,7 @@ const createBorrow = async (req, res) => {
     await borrow.save(); // ✅ Save it to MongoDB
 
     // Step 4: Decrease availableCopies by 1 (atomic)
-    await Book.updateOne(
-      { _id: bookId },
-      { $inc: { availableCopies: -1 } }
-    );
+    await Book.updateOne({ _id: bookId }, { $inc: { availableCopies: -1 } });
 
     res.status(201).json({
       message: "Book borrowed successfully",
@@ -49,7 +51,6 @@ const createBorrow = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
-
 
 const getAllBorrows = async (req, res) => {
   try {

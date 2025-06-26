@@ -1,51 +1,54 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { useState, useEffect } from "react";
 import ComponentCard from "../../components/admin/ComponentsCard";
-import UsersTable from "../../components/admin/UsersTable";
-const Users = () => {
+import BorrowTable from "../../components/admin/BorrowTable";
+const BorrowRequests = () => {
   const mainUrl = import.meta.env.VITE_URL_MAIN;
-  const [users, setUsers] = useState(null);
+  const [borrowData, setBorrowData] = useState(null);
 
-  const fetchUsers = async () => {
+  const fetchBorrow = async () => {
     try {
-      const response = await fetch(`${mainUrl}/api/users`);
+      const response = await fetch(`${mainUrl}/api/borrows`);
       if (!response.ok) {
-        throw new Error("Failed to fetch users");
+        throw new Error("Failed to fetch borrow data");
       }
       const data = await response.json();
-      setUsers(data);
+      setBorrowData(data);
     } catch (err) {
-      console.error("Error fetching users:", err);
+      console.error("Error fetching Borrow Data:", err);
     }
   };
 
   useEffect(() => {
-    fetchUsers();
-  }, [users]);
+    fetchBorrow();
+    console.log(borrowData);
+  }, [0]);
 
   return (
     <div>
       <ComponentCard>
-        {users === null ? (
+        {borrowData === null ? (
           <div className="flex flex-col items-center justify-center h-96">
             <h3 className="text-lg font-semibold text-gray-800 dark:text-white">
               Loading...
             </h3>
           </div>
-        ) : users.length === 0 ? (
+        ) : borrowData.filter((item) => item.status !== "PENDING").length ===
+          0 ? (
           <div className="flex flex-col items-center justify-center h-96">
             <h3 className="text-lg font-semibold text-gray-800 dark:text-white">
-              No Users Available
+              No Borrow Requests
             </h3>
             <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
-              It seems there are no users registered yet. You can start by creating a new user.
+              All borrow requests have been handled.
             </p>
           </div>
         ) : (
-          <UsersTable users={users} />
+          <BorrowTable borrowData={borrowData} />
         )}
       </ComponentCard>
     </div>
   );
 };
 
-export default Users;
+export default BorrowRequests;

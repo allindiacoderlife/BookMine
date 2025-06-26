@@ -31,7 +31,7 @@ export const adminSideBarLinks = [
   },
   {
     img: `${admin.admineBookMark}`,
-    route: "/admin/book-requests",
+    route: "/admin/borrow-requests",
     text: "Borrow Requests",
   },
   {

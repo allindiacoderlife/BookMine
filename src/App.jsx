@@ -13,7 +13,7 @@ import AdminHome from "./pages/Admin/AdminHome";
 import Users from "./pages/Admin/Users";
 import Books from "./pages/Admin/Books";
 import BookNew from "./pages/Admin/BookNew";
-import BookRequests from "./pages/Admin/BookRequests";
+import BorrowRequests from "./pages/Admin/BorrowRequests";
 import AccountRequests from "./pages/Admin/AccountRequests";
 
 import { isLoggedIn, userInfo } from "./lib/auth";
@@ -100,7 +100,7 @@ const App = () => {
           <Route path="users" element={<Users />} />
           <Route path="books" element={<Books />} />
           <Route path="books/new" element={<BookNew />} />
-          <Route path="book-requests" element={<BookRequests />} />
+          <Route path="borrow-requests" element={<BorrowRequests />} />
           <Route path="account-requests" element={<AccountRequests />} />
         </Route>
 
